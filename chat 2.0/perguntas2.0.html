@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./fav/favicon.ico" type="image/x-icon">
+  <title>Chatbot Saneamento</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e0f7fa;
+      padding: 20px;
+    }
+    .chatbox {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .chatlog {
+      margin-bottom: 20px;
+      min-height: 100px;
+    }
+    .button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+    .btn20 button{color: #ffffff;
+    background-color: #007BFF;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px;
+}
+.btn20 button:hover{background-color: #0056b3;}
+  </style>
+</head>
+<body>
+  <div class="chatbox">
+    <h2>Chatbot sobre Saneamento Básico</h2>
+    <div id="chatlog" class="chatlog"></div>
+    <button class="button" onclick="responder('saneamento')">O que é saneamento básico?</button>
+    <button class="button" onclick="responder('servicos')">Quais são os serviços de saneamento?</button>
+    <button class="button" onclick="responder('importancia')">Por que é importante?</button>
+    <button class="button" onclick="responder('ajuda')">Como posso ajudar?</button>
+    <button class="button" onclick="responder('doencas')">Quais doenças estão ligadas à falta de saneamento?</button>
+  </div>
+<div class="btn20">
+  <a href ="../home.html"><button>Voltar</button></a>
+</div>
+  <script>
+    function responder(pergunta) {
+      const chatlog = document.getElementById('chatlog');
+      chatlog.innerHTML = ''; // Limpa respostas anteriores
+      let resposta = '';
+
+      switch(pergunta) {
+        case 'saneamento':
+          resposta = 'Saneamento básico é o conjunto de serviços que garantem água tratada, coleta e tratamento de esgoto, manejo de resíduos sólidos e drenagem urbana.';
+          break;
+        case 'servicos':
+          resposta = 'Os principais serviços de saneamento incluem: abastecimento de água, esgotamento sanitário, coleta de lixo e drenagem de águas pluviais.';
+          break;
+        case 'importancia':
+          resposta = 'O saneamento é fundamental para prevenir doenças, proteger o meio ambiente e garantir qualidade de vida à população.';
+          break;
+        case 'ajuda':
+          resposta = 'Você pode ajudar cobrando políticas públicas, economizando água, descartando lixo corretamente e participando de ações comunitárias.';
+          break;
+        case 'doencas':
+          resposta = 'A falta de saneamento está relacionada a doenças como hepatite A, cólera, verminoses e diarreias, que podem ser fatais.';
+          break;
+        default:
+          resposta = 'Desculpe, não entendi a pergunta.';
+      }
+
+      chatlog.innerHTML = `<p><strong>Resposta:</strong> ${resposta}</p>`;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./fav/favicon.ico" type="image/x-icon">
+    <title>Contato</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #e0f7fa;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px;
+        }
+    
+        .chat-container, .denuncia-container {
+          background: #ffffff;
+          border-radius: 10px;
+          padding: 20px;
+          width: 400px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          margin-bottom: 20px;
+        }
+    
+        .messages {
+          height: 300px;
+          overflow-y: auto;
+          border: 1px solid #ccc;
+          padding: 10px;
+          margin-bottom: 10px;
+          border-radius: 5px;
+        }
+    
+        .message { margin: 5px 0; }
+        .bot { color: green; }
+        .user { color: blue; text-align: right; }
+    
+        input[type="text"], input[type="email"], textarea {
+          width: 100%;
+          padding: 10px;
+          margin: 5px 0 10px 0;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+    
+        button {
+          padding: 10px;
+          width: 100%;
+          background-color: #00838f;
+          color: white;
+          border: none;
+          border-radius: 5px;
+        }
+    
+        h3 {
+          margin-top: 0;
+        }
+    
+        .resumo {
+          margin-top: 15px;
+          background: #e0f2f1;
+          padding: 10px;
+          border-radius: 5px;
+        }
+      </style>
+</head>
+<body>
+    <h1>Contato</h1>
+    <div class="chat-container">
+        <h3>Chatbot - Saneamento Básico</h3>
+        <div class="messages" id="messages"></div>
+        <input type="text" id="userInput" placeholder="Digite seu e-mail" />
+        <input type="text" id="userInput" placeholder="Digite sua pergunta..." />
+        <button onclick="sendMessage()">Enviar</button>
+      </div>
+      <div class="btn20">
+        <a href ="./home.html"><button>Voltar</button></a>
+      </div>
+</body>
+</html>
