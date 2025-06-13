@@ -2,141 +2,90 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Chatbot Saneamento Básico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./fav/favicon.ico" type="image/x-icon">
+  <title>Chatbot Saneamento</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #e0f7fa;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background-color: #e0f7fa;
       padding: 20px;
     }
-
-    .chat-container, .denuncia-container {
-      background: #ffffff;
+    .chatbox {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
       border-radius: 10px;
-      padding: 20px;
-      width: 400px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .chatlog {
       margin-bottom: 20px;
+      min-height: 100px;
     }
-
-    .messages {
-      height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
+    .button {
+      display: block;
+      margin: 10px 0;
       padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
-
-    .message { margin: 5px 0; }
-    .bot { color: green; }
-    .user { color: blue; text-align: right; }
-
-    input[type="text"], input[type="email"], textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 5px 0 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      padding: 10px;
-      width: 100%;
-      background-color: #00838f;
+      background-color: #007BFF;
       color: white;
       border: none;
       border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
     }
-
-    h3 {
-      margin-top: 0;
+    .button:hover {
+      background-color: #0056b3;
     }
-
-    .resumo {
-      margin-top: 15px;
-      background: #e0f2f1;
-      padding: 10px;
-      border-radius: 5px;
-    }
+    .btn20 button{color: #ffffff;
+    background-color: #007BFF;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px;
+}
+.btn20 button:hover{background-color: #0056b3;}
   </style>
 </head>
 <body>
-
-  <!-- Chatbot -->
-  <div class="chat-container">
-    <h3>Chatbot - Saneamento Básico</h3>
-    <div class="messages" id="messages"></div>
-    <input type="text" id="userInput" placeholder="Digite sua pergunta..." />
-    <button onclick="sendMessage()">Enviar</button>
+  <div class="chatbox">
+    <h2>Chatbot sobre Saneamento Básico</h2>
+    <div id="chatlog" class="chatlog"></div>
+    <button class="button" onclick="responder('saneamento')">O que é saneamento básico?</button>
+    <button class="button" onclick="responder('servicos')">Quais são os serviços de saneamento?</button>
+    <button class="button" onclick="responder('importancia')">Por que é importante?</button>
+    <button class="button" onclick="responder('ajuda')">Como posso ajudar?</button>
+    <button class="button" onclick="responder('doencas')">Quais doenças estão ligadas à falta de saneamento?</button>
   </div>
-
-  <!-- Denúncia -->
-  <div class="denuncia-container">
-    <h3>Denunciar Problema de Saneamento</h3>
-    <form id="denunciaForm" onsubmit="return enviarDenuncia()">
-      <input type="text" id="nome" placeholder="Seu nome" required />
-      <input type="email" id="email" placeholder="Seu e-mail" required />
-      <input type="text" id="local" placeholder="Local do problema (bairro, rua...)" required />
-      <textarea id="descricao" placeholder="Descreva o problema..." required></textarea>
-      <input type="file" id="foto" accept="image/*" />
-      <button type="submit">Enviar denúncia</button>
-    </form>
-    <div id="resumo" class="resumo" style="display: none;"></div>
-  </div>
-
+<div class="btn20">
+  <a href ="./index.html"><button>Voltar</button></a>
+</div>
   <script>
-    const responses = {
-      "o que é saneamento básico": "Saneamento básico é o conjunto de serviços públicos de abastecimento de água, esgotamento sanitário, manejo de resíduos sólidos e drenagem urbana.",
-      "por que o saneamento é importante": "Ele previne doenças, melhora a qualidade de vida e protege o meio ambiente.",
-      "quais doenças podem ser evitadas": "Cólera, hepatite A, leptospirose e diversas doenças gastrointestinais.",
-      "como posso ajudar na minha comunidade": "Você pode participar de campanhas de conscientização, cobrar das autoridades e cuidar do descarte correto do lixo.",
-      "o que é tratamento de esgoto": "É o processo de remoção de poluentes da água usada para que ela possa ser devolvida ao meio ambiente sem riscos.",
-    };
+    function responder(pergunta) {
+      const chatlog = document.getElementById('chatlog');
+      chatlog.innerHTML = ''; // Limpa respostas anteriores
+      let resposta = '';
 
-    function sendMessage() {
-      const input = document.getElementById('userInput');
-      const msg = input.value.trim();
-      if (msg === "") return;
-
-      const messagesDiv = document.getElementById('messages');
-      messagesDiv.innerHTML += `<div class="message user"><strong>Você:</strong> ${msg}</div>`;
-
-      const lowerMsg = msg.toLowerCase();
-      const response = responses[lowerMsg] || "Desculpe, não entendi sua pergunta. Tente perguntar de outra forma.";
-
-      messagesDiv.innerHTML += `<div class="message bot"><strong>Bot:</strong> ${response}</div>`;
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-      input.value = "";
-    }
-
-    function enviarDenuncia() {
-      const nome = document.getElementById("nome").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const local = document.getElementById("local").value.trim();
-      const descricao = document.getElementById("descricao").value.trim();
-
-      if (!nome || !email || !local || !descricao) {
-        alert("Preencha todos os campos obrigatórios.");
-        return false;
+      switch(pergunta) {
+        case 'saneamento':
+          resposta = 'Saneamento básico é o conjunto de serviços que garantem água tratada, coleta e tratamento de esgoto, manejo de resíduos sólidos e drenagem urbana.';
+          break;
+        case 'servicos':
+          resposta = 'Os principais serviços de saneamento incluem: abastecimento de água, esgotamento sanitário, coleta de lixo e drenagem de águas pluviais.';
+          break;
+        case 'importancia':
+          resposta = 'O saneamento é fundamental para prevenir doenças, proteger o meio ambiente e garantir qualidade de vida à população.';
+          break;
+        case 'ajuda':
+          resposta = 'Você pode ajudar cobrando políticas públicas, economizando água, descartando lixo corretamente e participando de ações comunitárias.';
+          break;
+        case 'doencas':
+          resposta = 'A falta de saneamento está relacionada a doenças como hepatite A, cólera, verminoses e diarreias, que podem ser fatais.';
+          break;
+        default:
+          resposta = 'Desculpe, não entendi a pergunta.';
       }
 
-      const resumo = document.getElementById("resumo");
-      resumo.style.display = "block";
-      resumo.innerHTML = `
-        <strong>Resumo da Denúncia:</strong><br>
-        <p><strong>Nome:</strong> ${nome}</p>
-        <p><strong>Local do problema:</strong> ${local}</p>
-        <p><strong>Descrição:</strong> ${descricao}</p>
-        <p><strong>Como se prevenir:</strong> Evite contato direto com áreas alagadas ou esgoto exposto. Lave bem os alimentos e as mãos. Use água potável para consumo.</p>
-        <p>Obrigado por contribuir com a saúde da sua comunidade em Rio Grande da Serra.</p>
-      `;
-
-      document.getElementById("denunciaForm").reset();
-      return false; // impede o envio real do formulário (sem backend)
+      chatlog.innerHTML = `<p><strong>Resposta:</strong> ${resposta}</p>`;
     }
   </script>
 
